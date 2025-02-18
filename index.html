@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Sıcaklık Verisi</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .temperature {
+      font-size: 2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>IoT Sıcaklık Verisi</h1>
+  <div class="temperature">Yükleniyor...</div>
+
+  <script>
+    // Firebase yapılandırması
+    const firebaseConfig = {
+      apiKey: "KM52rCtq2Vwqr6vckWgM7wc5rYtoH8TpumEVueMM", // Firebase'den alın
+      authDomain: "sample-firebase-ai-app-14b1c.firebaseapp.com",
+      databaseURL: "https://sample-firebase-ai-app-14b1c-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "sample-firebase-ai-app-14b1c",
+      storageBucket: "sample-firebase-ai-app-14b1c.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "sample-firebase-ai-app-14b1c"
+    };
+
+    // Firebase'i başlat
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Sıcaklık verisini oku ve ekrana yazdır
+    const temperatureRef = database.ref("/temperature");
+    temperatureRef.on("value", (snapshot) => {
+      const temperature = snapshot.val();
+      document.querySelector(".temperature").textContent = `${temperature}°C`;
+    });
+  </script>
+</body>
+</html>
